@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Recommendations from "../components/Recommendations";
 import styled from "styled-components";
 import { Heart } from "lucide-react";
+import { FavoriteContext } from "../components/context/FavoriteContext";
 
 const Container = styled.div`
   margin-top: 40px;
@@ -104,15 +105,21 @@ const Favorite = styled.div`
   top: 0;
   right: 0;
   cursor: pointer;
-  color: ${(props) => (props.isFavorite ? "#ffcc00" : "black")};
+
+  svg {
+    color: ${(props) => (props.isFavorite ? "#ffcc00" : "black")};
+  }
 `;
 
 export default function FilmDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isFavorite,setIsFavorite] =useState(false)
+  const { favorites, toggleFavorite } = useContext(FavoriteContext);
+
   const apiKey = "ab7e358c4c026cabfdffcf29898076f0";
+
+  const isFavorite = favorites.some((m) => m.id === parseInt(id));
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -142,9 +149,9 @@ export default function FilmDetails() {
         <Body>
           <Favorite
             isFavorite={isFavorite}
-            onClick={() => setIsFavorite(!isFavorite)}
+            onClick={() => toggleFavorite(movie)}
           >
-            <Heart color="gold" size={28} />
+            <Heart size={28} />
           </Favorite>
           <Title>
             {movie.title}

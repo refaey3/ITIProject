@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { FavoriteContext } from "./context/FavoriteContext";
 import styled from "styled-components";
 import { Heart } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const MovieCard = styled.div`
   overflow: hidden;

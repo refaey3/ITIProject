@@ -4,6 +4,7 @@ import NavBar from "../components/common/NavBar";
 import SearchBar from "../components/SearchBar";
 
 export default function Home() {
+  
   return (
     <>
     <HeroSection />
